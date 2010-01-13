@@ -1,2 +1,4 @@
 *.o
 *.bundle
+*.log
+*.dSYM

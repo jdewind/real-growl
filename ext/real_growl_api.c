@@ -1,8 +1,4 @@
-#include "real_growl.h"
-
-#include <objc/runtime.h>
-#include <Growl/Growl.h>
-#include <Foundation/Foundation.h>
+#include "real_growl_api.h"
 
 VALUE rb_mRealGrowl;
 VALUE rb_cRealGrowlApplication;
@@ -61,7 +57,7 @@ method_init(VALUE self, VALUE applicationName) {
   Data_Get_Struct(self, RubyDelegate, delegate);
   
   NSString *nsAppName = [NSString stringWithCString:STR2CSTR(applicationName) encoding: NSASCIIStringEncoding];
-  [(RubyDelegate *)delegate setApplicationName: nsAppName];
+  [delegate setApplicationName: nsAppName];
   [GrowlApplicationBridge setGrowlDelegate: delegate];
   
   [pool release];
@@ -80,7 +76,7 @@ alloc_delegate(VALUE klass) {
 
 
 void
-Init_real_growl() {
+Init_real_growl_api() {
   
   rb_mRealGrowl = rb_define_module("RealGrowl");
   rb_define_singleton_method(rb_mRealGrowl, "installed?", classMethod_installed, 0);
