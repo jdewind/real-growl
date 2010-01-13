@@ -1,0 +1,28 @@
+real-growl
+
+== DESCRIPTION:
+
+RealGrowl uses C bindings to interact with GrowlApplicationBridge rather than
+using Growl's network API.
+
+== SYNOPSIS:
+
+  require 'real_growl'
+  rg("Check out", ["Real", "Growl"])
+  
+  my_own_application = RealGrowl::Application.new("AppName")
+  my_own_application.notify("Title", "Desc", 0, true)
+  
+
+== TODO:
+  * Allow for custom icons
+  * Add priority, sticky information to Application
+  
+== REQUIREMENTS:
+
+* MacOS X 10.4
+* Growl Framework
+
+== INSTALL:
+
+rake install
