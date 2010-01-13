@@ -21,8 +21,9 @@ using Growl's network API.
 == REQUIREMENTS:
 
 * MacOS X 10.5 >
-* Growl Framework
+* Growl Framework - http://growl.info/downloads_developers.php
 
 == INSTALL:
 
+Download and install Growl.framework into either ~/Library/Frameworks or /Library/Frameworks
 rake install
