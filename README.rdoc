@@ -20,7 +20,7 @@ using Growl's network API.
   
 == REQUIREMENTS:
 
-* MacOS X 10.4
+* MacOS X 10.5 >
 * Growl Framework
 
 == INSTALL:
