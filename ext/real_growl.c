@@ -75,7 +75,7 @@ alloc_delegate(VALUE klass) {
   ObjectHolder_t *objectHolder = (ObjectHolder_t *)malloc(sizeof(ObjectHolder_t));  
   objectHolder->object = [[RubyDelegate alloc] init];
   
-  return Data_Wrap_Struct(klass, 0, free_delegate, [[RubyDelegate alloc] init]);  
+  return Data_Wrap_Struct(klass, 0, free_delegate, objectHolder);  
 }
 
 
