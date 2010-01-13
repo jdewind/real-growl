@@ -34,12 +34,19 @@ classMethod_running(VALUE self) {
 }
 
 VALUE
-method_notify(VALUE self, VALUE title, VALUE description) {
+method_notify(VALUE self, VALUE title, VALUE description, VALUE sticky) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  BOOL nsSticky;
+  
+  if(sticky == Qtrue) {
+    nsSticky = YES;
+  } else {
+    sticky == NO;
+  }
   
   NSString *nsTitle = [NSString stringWithCString:STR2CSTR(title) encoding: NSASCIIStringEncoding];
   NSString *nsDescription = [NSString stringWithCString:STR2CSTR(description) encoding: NSASCIIStringEncoding];
-  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: nil priority: 0 isSticky:NO clickContext:nil];
+  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: nil priority: 0 isSticky:nsSticky clickContext:nil];
   
   [pool release];
   
@@ -49,12 +56,10 @@ method_notify(VALUE self, VALUE title, VALUE description) {
 VALUE 
 method_init(VALUE self, VALUE applicationName) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  ObjectHolder_t *objectHolder = NULL;
-  id delegate;
+  id delegate = NULL;
   
-  Data_Get_Struct(self, ObjectHolder_t, objectHolder);
+  Data_Get_Struct(self, RubyDelegate, delegate);
   
-  delegate = objectHolder->object;
   NSString *nsAppName = [NSString stringWithCString:STR2CSTR(applicationName) encoding: NSASCIIStringEncoding];
   [(RubyDelegate *)delegate setApplicationName: nsAppName];
   [GrowlApplicationBridge setGrowlDelegate: delegate];
@@ -64,18 +69,13 @@ method_init(VALUE self, VALUE applicationName) {
 }
 
 static void
-free_delegate(ObjectHolder_t *objectHolder) {
-  id delegate = objectHolder->object;
+free_delegate(id delegate) {
   [delegate release];
-  free(objectHolder);
 }
 
 static VALUE
 alloc_delegate(VALUE klass) {
-  ObjectHolder_t *objectHolder = (ObjectHolder_t *)malloc(sizeof(ObjectHolder_t));  
-  objectHolder->object = [[RubyDelegate alloc] init];
-  
-  return Data_Wrap_Struct(klass, 0, free_delegate, objectHolder);  
+  return Data_Wrap_Struct(klass, 0, free_delegate, [[RubyDelegate alloc] init]);  
 }
 
 
@@ -89,6 +89,6 @@ Init_real_growl() {
   rb_cRealGrowlApplication = rb_define_class_under(rb_mRealGrowl, "Application", rb_cObject);
   rb_define_alloc_func(rb_cRealGrowlApplication, alloc_delegate);
   rb_define_method(rb_cRealGrowlApplication, "initialize", method_init, 1);
-  rb_define_method(rb_cRealGrowlApplication, "notify", method_notify, 2);  
+  rb_define_method(rb_cRealGrowlApplication, "notify", method_notify, 3);  
 }
 
