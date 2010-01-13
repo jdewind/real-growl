@@ -30,7 +30,7 @@ classMethod_running(VALUE self) {
 }
 
 VALUE
-method_notify(VALUE self, VALUE title, VALUE description, VALUE sticky) {
+method_notify(VALUE self, VALUE title, VALUE description, VALUE priority, VALUE sticky) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   BOOL nsSticky;
   
@@ -42,7 +42,7 @@ method_notify(VALUE self, VALUE title, VALUE description, VALUE sticky) {
   
   NSString *nsTitle = [NSString stringWithCString:STR2CSTR(title) encoding: NSASCIIStringEncoding];
   NSString *nsDescription = [NSString stringWithCString:STR2CSTR(description) encoding: NSASCIIStringEncoding];
-  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: nil priority: 0 isSticky:nsSticky clickContext:nil];
+  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: nil priority: NUM2INT(priority) isSticky:nsSticky clickContext:nil];
   
   [pool release];
   
@@ -85,6 +85,6 @@ Init_real_growl_api() {
   rb_cRealGrowlApplication = rb_define_class_under(rb_mRealGrowl, "Application", rb_cObject);
   rb_define_alloc_func(rb_cRealGrowlApplication, alloc_delegate);
   rb_define_method(rb_cRealGrowlApplication, "initialize", method_init, 1);
-  rb_define_method(rb_cRealGrowlApplication, "notify", method_notify, 3);  
+  rb_define_method(rb_cRealGrowlApplication, "notify", method_notify, 4);  
 }
 
