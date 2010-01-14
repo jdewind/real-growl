@@ -5,7 +5,7 @@
 
 -(id)init {
   if(self = [super init]) {
-    applicationName = @"RealGrowl";
+    applicationName = [@"RealGrowl" retain];
     return self;
   }
   

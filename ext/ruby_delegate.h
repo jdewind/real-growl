@@ -8,5 +8,5 @@
 }
 
 -(NSDictionary *) registrationDictionaryForGrowl;
-@property(nonatomic, assign) NSString *applicationName;
+@property(nonatomic, retain) NSString *applicationName;
 @end
