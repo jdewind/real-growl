@@ -41,5 +41,6 @@ Download and install Growl.framework into either ~/Library/Frameworks or /Librar
 gem install real-growl
 
 == INSTALLATION HINTS:
-  * Make sure that the Growl.framework is either 32bit or the 64bit depending on the version of MacOS X
-    installed and the kind of machine it is installed on.
+
+Make sure that the Growl.framework is either 32bit or the 64bit depending on the version of MacOS X
+installed and the kind of machine it is installed on.
