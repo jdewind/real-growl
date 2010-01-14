@@ -2,28 +2,44 @@ real-growl
 
 == DESCRIPTION:
 
-RealGrowl uses C bindings to interact with GrowlApplicationBridge rather than
-using Growl's network API.
+RealGrowl uses C bindings to interact with GrowlApplicationBridge rather than using Growl's network API.
 
 == SYNOPSIS:
 
-  require 'real_growl'
-  rg("Check out", ["Real", "Growl"])
+  >> require 'real_growl'
+  => true
+  >> rg("Check out", ["Real", "Growl"])
+  => nil
   
-  my_own_application = RealGrowl::Application.new("AppName")
-  my_own_application.notify("Title", "Desc", 0, true)
+  >> Kernel.rg_sticky = false
+  => false
+  >> Kernel.rg_priority = 3
+  => 3
   
+  >> my_own_application = RealGrowl::Application.new("AppName")
+  => #<RealGrowl::Application:0x1018eb6b8>
+  >> my_own_application.notify("Title", "Desc", 0, true)
+  
+  >> RealGrowl.installed?
+  => true
+  >> RealGrowl.running?
+  => true
 
 == TODO:
+  * Add executable script
   * Allow for custom icons
-  * Add priority, sticky information to Application
+  * Enable growl callbacks
   
 == REQUIREMENTS:
 
-* MacOS X 10.5 >
+* MacOS X 10.5 > ??
 * Growl Framework - http://growl.info/downloads_developers.php
 
 == INSTALL:
 
 Download and install Growl.framework into either ~/Library/Frameworks or /Library/Frameworks
-rake install
+gem install real-growl
+
+== INSTALLATION HINTS:
+  * Make sure that the Growl.framework is either 32bit or the 64bit depending on the version of MacOS X
+    installed and the kind of machine it is installed on.

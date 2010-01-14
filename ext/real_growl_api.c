@@ -32,14 +32,8 @@ classMethod_running(VALUE self) {
 VALUE
 method_notify(VALUE self, VALUE title, VALUE description, VALUE priority, VALUE sticky) {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  BOOL nsSticky;
   
-  if(sticky == Qtrue) {
-    nsSticky = YES;
-  } else {
-    sticky == NO;
-  }
-  
+  BOOL nsSticky = (sticky == Qtrue) ? YES : NO;
   NSString *nsTitle = [NSString stringWithCString:STR2CSTR(title) encoding: NSASCIIStringEncoding];
   NSString *nsDescription = [NSString stringWithCString:STR2CSTR(description) encoding: NSASCIIStringEncoding];
   [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: nil priority: NUM2INT(priority) isSticky:nsSticky clickContext:nil];

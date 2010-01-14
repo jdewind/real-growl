@@ -2,11 +2,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
     s.name = "real-growl"
-    s.summary = "RealGrowl uses C bindings to interact with GrowlApplicationBridge rather than using Growl's network API."
+    s.summary = "Growl notification library that uses native c bindings."
+    s.description = "A Growl notification library c bindings to interact with GrowlApplicationBridge rather than using Growl's network API."
     s.email = "dewind@atomicobject.com"
     s.authors = ["Justin DeWind"]
     s.files =  FileList["README.rdoc", "lib/**/*.rb", "Rakefile", "ext/**/*.h", "ext/**/*.c", "ext/**/*.m"]
     s.extensions = ["ext/extconf.rb"]
+    s.homepage = "http://github.com/dewind/real-growl"
   end
   
   Jeweler::GemcutterTasks.new
