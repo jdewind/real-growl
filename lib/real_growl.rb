@@ -12,11 +12,13 @@ module Kernel
     
     @__growl_app ||= RealGrowl::Application.new("RealGrowl")
     
-    notifications = args.map { |x| x.pretty_inspect }
-    notifications.each do |x|
-      @__growl_app.notify('rg', x, Kernel.rg_priority, Kernel.rg_sticky)
+    if RealGrowl.running?
+      notifications = args.map { |x| x.pretty_inspect }
+      notifications.each do |x|
+        @__growl_app.notify('rg', x, Kernel.rg_priority, Kernel.rg_sticky)
+      end
     end
-    
+        
     nil
   end
 end
