@@ -54,7 +54,6 @@ classMethod_running(VALUE self) {
 }
 
 VALUE
-// VALUE title, VALUE description, VALUE priority, VALUE sticky, VALUE iconPath
 method_notify(VALUE self, VALUE options) {
   NSAutoreleasePool *pool = create_autorelease_pool();
   id delegate = NULL;
@@ -96,7 +95,6 @@ method_init(VALUE self, VALUE applicationName) {
   Data_Get_Struct(self, RubyDelegate, delegate);  
   NSString *nsAppName = build_nsstring(applicationName);
   [delegate setApplicationName: nsAppName];
-  [GrowlApplicationBridge setGrowlDelegate: delegate];
   
   [pool drain];
   

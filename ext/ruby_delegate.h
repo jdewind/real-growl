@@ -12,6 +12,7 @@
 
 -(NSDictionary *) registrationDictionaryForGrowl;
 -(void) growlNotificationWasClicked:(id)clickContext;
+-(NSString *)applicationNameForGrowl;
 
 @property(nonatomic, assign) VALUE callbackProc;
 @property(nonatomic, retain) NSString *applicationName;

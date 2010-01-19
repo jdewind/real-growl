@@ -12,12 +12,17 @@
   return nil;
 }
 
+-(NSString *)applicationNameForGrowl {
+  return applicationName;
+}
+
 -(NSDictionary *)registrationDictionaryForGrowl {
   NSArray *notifications = [NSArray arrayWithObject:REAL_GROWL_NOTIFICATION];
-  return [NSDictionary dictionaryWithObjectsAndKeys: [self applicationName], GROWL_APP_ID, [self applicationName], GROWL_APP_NAME, notifications, GROWL_NOTIFICATIONS_ALL, nil];
+  return [NSDictionary dictionaryWithObjectsAndKeys: [self applicationName], GROWL_APP_ID, [self applicationName], GROWL_APP_NAME, notifications, GROWL_NOTIFICATIONS_ALL, notifications, GROWL_NOTIFICATIONS_DEFAULT, nil];
 }
 
 -(void)growlNotificationWasClicked:(id)clickContext {
+  NSLog(@"Clicked");
   if(callbackProc != Qnil) {
     rb_funcall(callbackProc, rb_intern("call"), 0);
   }
