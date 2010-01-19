@@ -8,17 +8,19 @@ A Growl notification library that uses native c bindings to interact with GrowlA
 
   >> require 'real_growl'
   => true
-  >> rg("Check out", ["Real", "Growl"])
+  >> rg("Check out", ["Real", "Growl"], :icon => "/path/to/a/picture.jpg")
   => nil
   
   >> Kernel.rg_sticky = false
   => false
   >> Kernel.rg_priority = 3
   => 3
+  >> Kernel.rg_icon = "/the/path/cool.png"
+  => "/the/path/cool.png"
   
   >> my_own_application = RealGrowl::Application.new("AppName")
   => #<RealGrowl::Application:0x1018eb6b8>
-  >> my_own_application.notify("Title", "Desc", 0, true)
+  >> my_own_application.notify(:title => "Title", :description => "Desc", :priority => 0, :sticky => true, :icon => "/path/to/image.png")
   
   >> RealGrowl.installed?
   => true
@@ -27,7 +29,6 @@ A Growl notification library that uses native c bindings to interact with GrowlA
 
 == TODO:
   * Add executable script
-  * Allow for custom icons
   * Enable growl callbacks
   
 == REQUIREMENTS:

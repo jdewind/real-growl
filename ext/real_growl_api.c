@@ -3,6 +3,15 @@
 VALUE rb_mRealGrowl;
 VALUE rb_cRealGrowlApplication;
 
+static NSString*
+build_nsstring(VALUE string) {
+  if(string == Qnil) {
+    return nil;
+  } else {
+    return [NSString stringWithCString:STR2CSTR(string) encoding: NSASCIIStringEncoding];    
+  }
+}
+
 static void
 free_delegate(id delegate) {
   [delegate release];
@@ -45,13 +54,22 @@ classMethod_running(VALUE self) {
 }
 
 VALUE
-method_notify(VALUE self, VALUE title, VALUE description, VALUE priority, VALUE sticky) {
+// VALUE title, VALUE description, VALUE priority, VALUE sticky, VALUE iconPath
+method_notify(VALUE self, VALUE options) {
   NSAutoreleasePool *pool = create_autorelease_pool();
   
-  BOOL nsSticky = (sticky == Qtrue) ? YES : NO;
-  NSString *nsTitle = [NSString stringWithCString:STR2CSTR(title) encoding: NSASCIIStringEncoding];
-  NSString *nsDescription = [NSString stringWithCString:STR2CSTR(description) encoding: NSASCIIStringEncoding];
-  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: nil priority: NUM2INT(priority) isSticky:nsSticky clickContext:nil];
+  VALUE title             = rb_hash_aref(options, ID2SYM(rb_intern("title")));
+  VALUE description       = rb_hash_aref(options, ID2SYM(rb_intern("description")));
+  VALUE priority          = rb_hash_aref(options, ID2SYM(rb_intern("priority")));
+  priority                = (priority == Qnil) ? INT2NUM(0) : priority;
+  VALUE sticky            = rb_hash_aref(options, ID2SYM(rb_intern("sticky")));
+  VALUE iconPath          = rb_hash_aref(options, ID2SYM(rb_intern("icon")));  
+  BOOL nsSticky           = (sticky == Qtrue) ? YES : NO;
+  NSData *data            = [NSData dataWithContentsOfFile:build_nsstring(iconPath)];
+  NSString *nsTitle       = build_nsstring(title);
+  NSString *nsDescription = build_nsstring(description);
+  
+  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: data priority: NUM2INT(priority) isSticky:nsSticky clickContext:nil];
   
   [pool drain];
   
@@ -82,6 +100,6 @@ Init_real_growl_api() {
   rb_cRealGrowlApplication = rb_define_class_under(rb_mRealGrowl, "Application", rb_cObject);
   rb_define_alloc_func(rb_cRealGrowlApplication, alloc_delegate);
   rb_define_method(rb_cRealGrowlApplication, "initialize", method_init, 1);
-  rb_define_method(rb_cRealGrowlApplication, "notify", method_notify, 4);  
+  rb_define_method(rb_cRealGrowlApplication, "notify", method_notify, 1);  
 }
 
