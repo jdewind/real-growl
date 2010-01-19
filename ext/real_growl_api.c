@@ -57,19 +57,31 @@ VALUE
 // VALUE title, VALUE description, VALUE priority, VALUE sticky, VALUE iconPath
 method_notify(VALUE self, VALUE options) {
   NSAutoreleasePool *pool = create_autorelease_pool();
+  id delegate = NULL;
+  Data_Get_Struct(self, RubyDelegate, delegate);
   
   VALUE title             = rb_hash_aref(options, ID2SYM(rb_intern("title")));
   VALUE description       = rb_hash_aref(options, ID2SYM(rb_intern("description")));
-  VALUE priority          = rb_hash_aref(options, ID2SYM(rb_intern("priority")));
-  priority                = (priority == Qnil) ? INT2NUM(0) : priority;
+  VALUE priority          = rb_Integer(rb_hash_aref(options, ID2SYM(rb_intern("priority"))));
   VALUE sticky            = rb_hash_aref(options, ID2SYM(rb_intern("sticky")));
   VALUE iconPath          = rb_hash_aref(options, ID2SYM(rb_intern("icon")));  
+  VALUE click             = rb_hash_aref(options, ID2SYM(rb_intern("click")));
   BOOL nsSticky           = (sticky == Qtrue) ? YES : NO;
   NSData *data            = [NSData dataWithContentsOfFile:build_nsstring(iconPath)];
   NSString *nsTitle       = build_nsstring(title);
   NSString *nsDescription = build_nsstring(description);
+  NSNumber *clickContext  = [NSNumber numberWithInt:NUM2LONG(rb_funcall(self, rb_intern("object_id"), 0))];
   
-  [GrowlApplicationBridge notifyWithTitle: nsTitle description: nsDescription notificationName: REAL_GROWL_NOTIFICATION iconData: data priority: NUM2INT(priority) isSticky:nsSticky clickContext:nil];
+  [delegate setCallbackProc: click];
+  
+  [GrowlApplicationBridge 
+    notifyWithTitle: nsTitle 
+    description: nsDescription 
+    notificationName: REAL_GROWL_NOTIFICATION 
+    iconData: data 
+    priority: NUM2INT(priority) 
+    isSticky:nsSticky 
+    clickContext:clickContext];
   
   [pool drain];
   
