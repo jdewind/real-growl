@@ -70,10 +70,10 @@ method_notify(VALUE self, VALUE options) {
   NSData *data            = [NSData dataWithContentsOfFile:build_nsstring(iconPath)];
   NSString *nsTitle       = build_nsstring(title);
   NSString *nsDescription = build_nsstring(description);
-  NSNumber *clickContext  = [NSNumber numberWithInt:NUM2LONG(rb_funcall(self, rb_intern("object_id"), 0))];
+  NSNumber *clickContext  = [NSNumber numberWithLong: self];
   
   [delegate setCallbackProc: click];
-  
+  [GrowlApplicationBridge setGrowlDelegate: delegate];  
   [GrowlApplicationBridge 
     notifyWithTitle: nsTitle 
     description: nsDescription 
