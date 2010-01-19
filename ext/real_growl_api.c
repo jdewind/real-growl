@@ -94,7 +94,7 @@ method_init(VALUE self, VALUE applicationName) {
   id delegate = NULL;  
   
   Data_Get_Struct(self, RubyDelegate, delegate);  
-  NSString *nsAppName = [NSString stringWithCString:STR2CSTR(applicationName) encoding: NSASCIIStringEncoding];
+  NSString *nsAppName = build_nsstring(applicationName);
   [delegate setApplicationName: nsAppName];
   [GrowlApplicationBridge setGrowlDelegate: delegate];
   
