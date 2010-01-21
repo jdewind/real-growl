@@ -22,7 +22,6 @@
 }
 
 -(void)growlNotificationWasClicked:(id)clickContext {
-  NSLog(@"Clicked");
   if(callbackProc != Qnil) {
     rb_funcall(callbackProc, rb_intern("call"), 0);
   }

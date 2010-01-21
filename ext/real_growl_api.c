@@ -12,6 +12,11 @@ build_nsstring(VALUE string) {
   }
 }
 
+static NSAutoreleasePool*
+create_autorelease_pool() {
+  return [[NSAutoreleasePool alloc] init];
+}
+
 static void
 free_delegate(id delegate) {
   [delegate release];
@@ -20,11 +25,6 @@ free_delegate(id delegate) {
 static VALUE
 alloc_delegate(VALUE klass) {
   return Data_Wrap_Struct(klass, 0, free_delegate, [[RubyDelegate alloc] init]);  
-}
-
-static NSAutoreleasePool*
-create_autorelease_pool() {
-  return [[NSAutoreleasePool alloc] init];
 }
 
 VALUE
@@ -69,7 +69,7 @@ method_notify(VALUE self, VALUE options) {
   NSData *data            = [NSData dataWithContentsOfFile:build_nsstring(iconPath)];
   NSString *nsTitle       = build_nsstring(title);
   NSString *nsDescription = build_nsstring(description);
-  NSNumber *clickContext  = [NSNumber numberWithLong: self];
+  NSNumber *clickContext  = [NSNumber numberWithUnsignedLong: self];
   
   [delegate setCallbackProc: click];
   [GrowlApplicationBridge setGrowlDelegate: delegate];  
