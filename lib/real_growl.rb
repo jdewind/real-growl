@@ -10,11 +10,13 @@ module Kernel
     Kernel.rg_priority ||= 0
     Kernel.rg_sticky = true if Kernel.rg_sticky.nil?
     icon = Kernel.rg_icon
+    click = nil
     
     @__growl_app ||= RealGrowl::Application.new("RealGrowl")
     
-    if args.last.is_a?(Hash) and args.last[:icon]
+    if args.last.is_a?(Hash) and (args.last[:icon] or args.last[:click])
       icon = args.last[:icon]
+      click = args.last[:click]
       args.pop
     end
     
