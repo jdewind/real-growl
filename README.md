@@ -8,8 +8,8 @@ A Growl notification library that uses native c bindings to interact with GrowlA
 Synopsis
 ========
 
-  rg
-  ---
+rg
+---
 
     >> require 'real_growl'
     => true
@@ -24,16 +24,16 @@ Synopsis
     >> Kernel.rg_icon = "/the/path/cool.png"
     => "/the/path/cool.png"
   
-  Custom Application
-  ------------------
+Custom Application
+------------------
 
     >> require 'real_growl'
     >> my_own_application = RealGrowl::Application.new("AppName")
     => #<RealGrowl::Application:0x1018eb6b8>
     >> my_own_application.notify(:title => "Title", :description => "Desc", :priority => 0, :sticky => true, :icon => "/path/to/image.png")
 
-  Extras
-  ------
+Extras
+------
     >> RealGrowl.installed?
     => true
     >> RealGrowl.running?
