@@ -12,6 +12,18 @@ build_nsstring(VALUE string) {
   }
 }
 
+static NSData*
+get_icon_data(VALUE pathOrUrl) {
+  NSString *nsPathOrUrl = build_nsstring(pathOrUrl);
+  
+  if([NSURL URLWithString: nsPathOrUrl] == nil) {
+    return [NSData dataWithContentsOfFile: nsPathOrUrl];
+  }
+  
+  return [NSData dataWithContentsOfURL: [NSURL URLWithString: nsPathOrUrl]];
+}
+
+
 static NSAutoreleasePool*
 create_autorelease_pool() {
   return [[NSAutoreleasePool alloc] init];
@@ -65,8 +77,9 @@ method_notify(VALUE self, VALUE options) {
   VALUE sticky            = rb_hash_aref(options, ID2SYM(rb_intern("sticky")));
   VALUE iconPath          = rb_hash_aref(options, ID2SYM(rb_intern("icon")));  
   VALUE click             = rb_hash_aref(options, ID2SYM(rb_intern("click")));
+  
   BOOL nsSticky           = (sticky == Qtrue) ? YES : NO;
-  NSData *data            = [NSData dataWithContentsOfFile:build_nsstring(iconPath)];
+  NSData *data            = get_icon_data(iconPath);
   NSString *nsTitle       = build_nsstring(title);
   NSString *nsDescription = build_nsstring(description);
   NSNumber *clickContext  = [NSNumber numberWithUnsignedLong: self];
