@@ -15,12 +15,17 @@ build_nsstring(VALUE string) {
 static NSData*
 get_icon_data(VALUE pathOrUrl) {
   NSString *nsPathOrUrl = build_nsstring(pathOrUrl);
+  NSData *iconData = nil;
   
-  if(nsPathOrUrl != nil && [NSURL URLWithString: nsPathOrUrl] != nil) {
-    return [NSData dataWithContentsOfURL: [NSURL URLWithString: nsPathOrUrl]];
+  if(nsPathOrUrl != nil) {
+    iconData = [NSData dataWithContentsOfFile: nsPathOrUrl];
+    
+    if(iconData == nil) {
+      iconData = [NSData dataWithContentsOfURL: [NSURL URLWithString: nsPathOrUrl]];
+    }
   }
   
-  return [NSData dataWithContentsOfFile: nsPathOrUrl];
+  return iconData;
 }
 
 
