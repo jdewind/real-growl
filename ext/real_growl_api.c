@@ -16,11 +16,11 @@ static NSData*
 get_icon_data(VALUE pathOrUrl) {
   NSString *nsPathOrUrl = build_nsstring(pathOrUrl);
   
-  if([NSURL URLWithString: nsPathOrUrl] == nil) {
-    return [NSData dataWithContentsOfFile: nsPathOrUrl];
+  if(nsPathOrUrl != nil && [NSURL URLWithString: nsPathOrUrl] != nil) {
+    return [NSData dataWithContentsOfURL: [NSURL URLWithString: nsPathOrUrl]];
   }
   
-  return [NSData dataWithContentsOfURL: [NSURL URLWithString: nsPathOrUrl]];
+  return [NSData dataWithContentsOfFile: nsPathOrUrl];
 }
 
 
