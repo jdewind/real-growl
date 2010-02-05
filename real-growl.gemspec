@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin DeWind"]
-  s.date = %q{2010-02-03}
+  s.date = %q{2010-02-05}
   s.description = %q{A Growl notification library that uses native c bindings to interact with GrowlApplicationBridge rather than Growl's network API.}
   s.email = %q{dewind@atomicobject.com}
   s.extensions = ["ext/extconf.rb"]
