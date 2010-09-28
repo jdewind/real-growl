@@ -8,7 +8,7 @@ build_nsstring(VALUE string) {
   if(string == Qnil) {
     return nil;
   } else {
-    return [NSString stringWithCString:STR2CSTR(string) encoding: NSASCIIStringEncoding];    
+    return [NSString stringWithCString:StringValuePtr(string) encoding: NSASCIIStringEncoding];    
   }
 }
 
