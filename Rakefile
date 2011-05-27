@@ -9,6 +9,7 @@ begin
     s.files =  FileList["README.rdoc", "lib/**/*.rb", "Rakefile", "ext/**/*.h", "ext/**/*.c", "ext/**/*.m"]
     s.extensions = ["ext/extconf.rb"]
     s.homepage = "http://github.com/dewind/real-growl"
+    s.add_dependency "slop"
   end
   
   Jeweler::GemcutterTasks.new

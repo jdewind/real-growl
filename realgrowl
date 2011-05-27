@@ -2,7 +2,6 @@
 
 require 'real_growl'
 require 'slop'
-require 'ap'
 
 opts = Slop.parse do
   on :s, :sticky,      :default => true
