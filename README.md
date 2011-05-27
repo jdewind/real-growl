@@ -55,9 +55,9 @@ INSTALL
 Download and install Growl.framework into either ~/Library/Frameworks or /Library/Frameworks
 gem install real-growl
 
-  $ # Download latest Growl SDK
-  $ # Copy Growl.framework under Frameworks
-  $ cp -r /Volumes/Growl\ 1.2.2\ SDK/Frameworks/Growl.framework /Library/Frameworks
+    $ # Download latest Growl SDK
+    $ # Copy Growl.framework under Frameworks
+    $ cp -r /Volumes/Growl\ 1.2.2\ SDK/Frameworks/Growl.framework /Library/Frameworks
 
 INSTALLATION HINTS
 ------------------
@@ -74,10 +74,10 @@ Uses slop to easily call a Growl notification with options (http://github.com/in
 
 ### Install
 
-  $ sudo ln -s /path/to/realgrowl /usr/bin/realgrowl
+   $ sudo ln -s /path/to/realgrowl /usr/bin/realgrowl
 
 ### Run
 
-  $ realgrowl 
-  $ realgrowl -t "New alert"
-  $ realgrowl -d "A new notification of something!" -t "New alert"
+    $ realgrowl 
+    $ realgrowl -t "New alert"
+    $ realgrowl -d "A new notification of something!" -t "New alert"
