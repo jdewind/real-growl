@@ -74,7 +74,7 @@ Uses slop to easily call a Growl notification with options (http://github.com/in
 
 ### Install
 
-   $ sudo ln -s /path/to/realgrowl /usr/bin/realgrowl
+    $ sudo ln -s /path/to/realgrowl /usr/bin/realgrowl
 
 ### Run
 
