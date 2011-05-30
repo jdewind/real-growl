@@ -75,3 +75,8 @@ Uses slop to easily call a Growl notification with options (http://github.com/in
     $ realgrowl 
     $ realgrowl -t "New alert"
     $ realgrowl -d "A new notification of something!" -t "New alert"
+
+Contributors
+-----------
+
+* basicxman (Growl Executable)
