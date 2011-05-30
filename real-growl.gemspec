@@ -10,15 +10,16 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin DeWind"]
   s.date = %q{2011-05-30}
+  s.default_executable = %q{realgrowl}
   s.description = %q{A Growl notification library that uses native c bindings to interact with GrowlApplicationBridge rather than Growl's network API.}
   s.email = %q{dewind@atomicobject.com}
+  s.executables = ["realgrowl"]
   s.extensions = ["ext/extconf.rb"]
   s.extra_rdoc_files = [
     "README.md"
   ]
   s.files = [
     "Rakefile",
-    "bin/realgrowl",
     "ext/real_growl_api.c",
     "ext/real_growl_api.h",
     "ext/ruby_delegate.c",
