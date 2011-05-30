@@ -37,7 +37,7 @@ module RealGrowl
   
   module InstanceMethods
     def rg(*args)
-      RealGrowl.real_growl(*args)
+      RealGrowl::growl(*args)
     end
   end
   

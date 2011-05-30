@@ -17,11 +17,11 @@ Synopsis
     >> rg("Google", ["Real", "Growl"], :icon => "http://www.google.com/logos/stpatricks_d4gwinner_eo09.gif")
     => nil
   
-    >> Kernel.rg_sticky = false
+    >> RealGrowl.sticky = false
     => false
-    >> Kernel.rg_priority = 3
+    >> RealGrowl.priority = 3
     => 3
-    >> Kernel.rg_icon = "/the/path/cool.png"
+    >> RealGrowl.icon = "/the/path/cool.png"
     => "/the/path/cool.png"
   
 ### Custom Application
