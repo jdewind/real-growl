@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require 'real_growl'
+require 'slop'
+
+opts = Slop.parse do
+  on :s, :sticky,      :default => true
+  on :t, :title,       :optional => true, :default => "Alert"
+  on :d, :description, :optional => true, :default => "New Growl notification."
+  on :i, :icon,        :optional => true, :default => Kernel.rg_icon
+  on :p, :priority,    :optional => true, :default => 0
+end
+
+args = {}
+opts.to_hash.each { |k, v| args[k.to_sym] = v }
+
+temp = RealGrowl::Application.new(args[:title])
+temp.notify args
