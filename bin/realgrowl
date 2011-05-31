@@ -4,16 +4,36 @@ require 'rubygems'
 require 'real_growl'
 require 'slop'
 
-opts = Slop.parse do
-  on :s, :sticky,      :default => true
-  on :t, :title,       :optional => true, :default => "Alert"
-  on :d, :description, :optional => true, :default => "New Growl notification."
-  on :i, :icon,        :optional => true, :default => RealGrowl::icon
-  on :p, :priority,    :optional => true, :default => 0
+slop = Slop.new(:strict => true, :help => true) do
+  on :s, :sticky,      "Sticky notification. Default is true", :default => true
+  on :t, :title,       "Title", :optional => false
+  on :d, :description, "Description", :optional => false
+  on :i, :icon,        "Icon URL or Path", :optional => true, :default => RealGrowl::icon
+  on :p, :priority,    "Priority. Default is 0", :optional => true, :default => 0
+  on :a, :app,         "Application Name. Default is RealGrowl", :optional => true, :default => "RealGrowl"
+  banner "Usage: #{File.basename(__FILE__)} -t <title> -d <description>"
 end
 
-args = {}
-opts.to_hash.each { |k, v| args[k.to_sym] = v }
-
-app = RealGrowl::Application.new(args[:title])
-app.notify args
+begin  
+  values = slop.parse  
+  if values.empty?
+    puts slop
+    exit
+  end
+  
+  if !slop.to_hash["help"]
+    if RealGrowl.running?
+      args = {}
+      slop.to_hash.each { |k, v| args[k.to_sym] = v }
+      app = RealGrowl::Application.new(args[:app])
+      app.notify args
+    else
+      puts "It appears Growl is either not installed or is has been stopped."
+      exit 1
+    end
+  end
+rescue Slop::InvalidOptionError => e
+  puts "\n#{e.message}\n\n"
+  puts slop
+  exit
+end

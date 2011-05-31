@@ -4,7 +4,7 @@ require 'pp'
 module RealGrowl    
   class<<self
     attr_accessor :sticky, :priority, :icon
-  
+    
     def growl(*args)
       self.priority ||= 0
       self.sticky = true if self.sticky.nil?
