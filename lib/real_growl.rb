@@ -2,9 +2,9 @@ require 'real_growl_api'
 require 'pp'
 
 module RealGrowl    
-  module ClassMethods
+  class<<self
     attr_accessor :sticky, :priority, :icon
-    
+  
     def growl(*args)
       self.priority ||= 0
       self.sticky = true if self.sticky.nil?
@@ -35,17 +35,9 @@ module RealGrowl
     end
   end
   
-  module InstanceMethods
-    def rg(*args)
-      RealGrowl::growl(*args)
-    end
+  def rg(*args)
+    RealGrowl::growl(*args)
   end
-  
-  def self.included(receiver)
-    receiver.send :include, InstanceMethods
-  end
-  
-  extend self::ClassMethods
 end
 
 class Object  
