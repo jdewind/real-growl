@@ -5,9 +5,9 @@ require 'real_growl'
 require 'slop'
 
 slop = Slop.new(:strict => true, :help => true) do
-  on :s, :sticky,      "Sticky notification. Default is true", :default => true
-  on :t, :title,       "Title", :optional => false
-  on :d, :description, "Description", :optional => false
+  on :s, :sticky,      "Sticky notification"
+  on :t, :title,       "Title", true
+  on :d, :description, "Description", :optional => true
   on :i, :icon,        "Icon URL or Path", :optional => true, :default => RealGrowl::icon
   on :p, :priority,    "Priority. Default is 0", :optional => true, :default => 0
   on :a, :app,         "Application Name. Default is RealGrowl", :optional => true, :default => "RealGrowl"
@@ -25,7 +25,7 @@ begin
     if RealGrowl.running?
       args = {}
       slop.to_hash.each { |k, v| args[k.to_sym] = v }
-      app = RealGrowl::Application.new(args[:app])
+      app = RealGrowl::Application.new(args.delete(:app))
       app.notify args
     else
       puts "It appears Growl is either not installed or is has been stopped."
