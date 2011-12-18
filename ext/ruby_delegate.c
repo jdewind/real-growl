@@ -4,7 +4,7 @@
 @synthesize applicationName, callbackProc;
 
 -(id)init {
-  if(self = [super init]) {
+  if((self = [super init])) {
     applicationName = [@"RealGrowl" retain];
     return self;
   }

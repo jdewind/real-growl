@@ -2,7 +2,12 @@
 require 'mkmf'
 
 
-$CFLAGS << ' ' + "-ObjC "
+$CFLAGS << ' ' + "-ObjC "  
+
+if defined?(RUBY_ENGINE) && RUBY_ENGINE == "macruby"
+  $CFLAGS << ' ' + "-fobjc-gc"
+end
+
 $LDFLAGS << ' ' + "-lobjc -framework Foundation -framework Growl"
 $objs = %w(ruby_delegate.o real_growl_api.o)
 
