@@ -4,15 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{real-growl}
+  s.name = "real-growl"
   s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin DeWind"]
-  s.date = %q{2011-12-17}
-  s.default_executable = %q{realgrowl}
-  s.description = %q{A Growl notification library that uses native c bindings to interact with GrowlApplicationBridge rather than Growl's network API.}
-  s.email = %q{dewind@atomicobject.com}
+  s.date = "2011-12-18"
+  s.description = "A Growl notification library that uses native c bindings to interact with GrowlApplicationBridge rather than Growl's network API."
+  s.email = "dewind@atomicobject.com"
   s.executables = ["realgrowl"]
   s.extensions = ["ext/extconf.rb"]
   s.extra_rdoc_files = [
@@ -26,10 +25,10 @@ Gem::Specification.new do |s|
     "ext/ruby_delegate.h",
     "lib/real_growl.rb"
   ]
-  s.homepage = %q{http://github.com/dewind/real-growl}
+  s.homepage = "http://github.com/dewind/real-growl"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.2}
-  s.summary = %q{Growl notification library that was built using native c bindings.}
+  s.rubygems_version = "1.8.10"
+  s.summary = "Growl notification library that was built using native c bindings."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
