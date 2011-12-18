@@ -52,12 +52,9 @@ Requirements
 INSTALL
 -------
 
-Download and install Growl.framework into either ~/Library/Frameworks or /Library/Frameworks
-gem install real-growl
-
-    $ # Download latest Growl SDK
-    $ # Copy Growl.framework under Frameworks
-    $ cp -r /Volumes/Growl\ 1.2.2\ SDK/Frameworks/Growl.framework /Library/Frameworks
+1. Download latest Growl SDK (http://growl.cachefly.net/Growl-1.3.1-SDK.zip)
+2. cp -r /Volumes/Growl\ 1.3.1\ SDK/Frameworks/Growl.framework /Library/Frameworks
+3. gem install real-growl
 
 INSTALLATION HINTS
 ------------------
